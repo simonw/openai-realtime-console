@@ -454,6 +454,34 @@ export function ConsolePage() {
         return json;
       }
     );
+    client.addTool(
+      {
+        name: 'show_map',
+        description:
+          'Shows a map with a marker at the given lat, lng coordinate pair. Specify a label for the location.',
+        parameters: {
+          type: 'object',
+          properties: {
+            lat: {
+              type: 'number',
+              description: 'Latitude',
+            },
+            lng: {
+              type: 'number',
+              description: 'Longitude',
+            },
+            location: {
+              type: 'string',
+              description: 'Name of the location',
+            },
+          },
+          required: ['lat', 'lng', 'location'],
+        },
+      },
+      async ({ lat, lng, location }: { [key: string]: any }) => {
+        setCoords({ lat, lng, location });
+      }
+    );
 
     // handle realtime events from client + server for event logging
     client.on('realtime.event', (realtimeEvent: RealtimeEvent) => {
